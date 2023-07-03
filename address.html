@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous"> -->
+    <!-- <link rel="stylesheet" href="./jumia.css"> -->
+</head>
+
+<body style="padding: 0;margin: 0;">
+    <section style="width: 100%; display: flex;justify-content: space-around; margin: 40px;">
+        <div style="width: 60%;">
+            <form action="" style="display: block !important;">
+                <label for="">1. Delivery Address</label><br><br>
+                <hr>
+                <div style="display: flex;">
+                    <fieldset style="width: 50% !important;">
+                        <legend>First Name:</legend>
+                        <!-- <label for="fname">First name:</label> -->
+                        <input type="text" id="fname" name="fname" style="border: 0;height: 50px;width: 100%;"><br><br>
+                    </fieldset>
+                    <fieldset style="width: 50% !important;">
+                        <legend>Last Name</legend>
+                        <input type="text" id="lname" name="fname" style="border: 0;height: 50px;width: 100%;"><br><br>
+                    </fieldset>
+                </div>
+                <div style="display: flex; margin-top: 10px;">
+                    <fieldset style="width: 50% !important;">
+                        <legend>Phone Number:</legend>
+
+                        <input type="text" id="pnumber" name="fname"
+                            style="border: 0;height: 50px;width: 100%;"><br><br>
+
+
+                    </fieldset>
+                    <fieldset style="width: 50% !important;">
+                        <legend>Additional Phone Number</legend>
+                        <input type="text" id="afNumber" name="fname"
+                            style="border: 0;height: 50px;width: 100%;"><br><br>
+                    </fieldset>
+                </div>
+                <fieldset style="width: 90% !important;">
+                    <legend>Email</legend>
+                    <input type="email" placeholder="Enter a VALID EMAIL Address" id="email" name="email"
+                        style="border: 0; height: 50px;width: 100%;"><br><br>
+                </fieldset>
+                <fieldset style="width: 90% !important;">
+                    <legend>Delivery Address</legend>
+                    <input type="text" id="deliveryAddress" name="fname"
+                        style="border: 0; height: 50px;width: 100%;"><br><br>
+                </fieldset>
+                <fieldset style="width: 90% !important;">
+                    <legend>Additional Information</legend>
+                    <input type="text" id="addInfo" name="fname" style="border: 0; height: 50px;width: 100%;"><br><br>
+                </fieldset>
+                <div style="display: flex; margin-top: 10px;">
+                    <fieldset style="width: 50% !important;">
+                        <legend>Location</legend>
+
+                        <select name="" id="selectId" style="width: 100%;height: 50px; border: 0;">
+                            <option label="Please Select">
+                            <option value="">Lagos</option>
+                            <option value="">Abia</option>
+                            <option value="">Adamawa</option>
+                            <option value="">Akwa-Ibom</option>
+                            <option value="">Anambra</option>
+                            <option value="">Bauchi</option>
+                            <option value="">Bayelsa</option>
+                            <option value="">Benue</option>
+                            <option value="">Borno</option>
+                            <option value="">Cross-River</option>
+                            <option value="">Delta</option>
+                            <option value="">Ebonyi</option>
+                            <option value="">Edo</option>
+                            <option value="">Ekiti</option>
+                            <option value="">Enugu</option>
+                            <option value="">Federal Capital Territory</option>
+                            <option value="">Gombe</option>
+                            <option value="">Imo</option>
+                            <option value="">Jigawa</option>
+                            <option value="">Kaduna</option>
+                            <option value="">Kano</option>
+                            <option value="">Kebbi</option>
+                            <option value="">Kogi</option>
+                            <option value="">Kwara</option>
+                            <option value="">Lagos</option>
+                            <option value="">Nassarawa</option>
+                            <option value="">Niger</option>
+                            <option value="">Ogun</option>
+                            <option value="">Ondo</option>
+                            <option value="">Osun</option>
+                            <option value="">Oyo</option>
+                            <option value="">Plateau</option>
+                            <option value="">Rivers</option>
+                            <option value="">Sokoto</option>
+                            <option value="">Yobe</option>
+                            </optgroup>
+                        </select>
+
+
+                    </fieldset>
+
+                </div>
+
+            </form><br>
+            <div>
+                
+            </div>
+            <div style="width: 25%;">
+                <div style="font-size: 16px;">Order Summary: </div>
+                <hr>
+                <div style="margin-bottom: 10px;">Item's Total: <span id="balance" style="font-weight: bolder;font-size: 26px;"></span></div>
+                <button onclick="payWithPaystack()"
+                    style="background-color: #F68B1E; color: white; padding: 10px; border: 0; border-radius: 15px;font-weight: bold; font-size: 20px;">Make
+                    Payment</button>
+            </div>
+    </section>
+    <script src="https://js.paystack.co/v2/popup.js"></script>
+    <script>
+        
+       var checkBalance=JSON.parse(localStorage.getItem("CheckoutAmount") ) 
+       console.log(checkBalance);
+       document.getElementById("balance").innerText= "#"+ checkBalance
+
+        const payWithPaystack = (e) => {
+    if (fname.value == "" || lname.value == "" || pnumber.value == "" || deliveryAddress.value == ""|| email.value=='') {
+        alert("Enter Details");
+    } else {
+        var address = {
+            firstName: fname.value,
+            lastName: lname.value,
+            email: email.value,
+            phoneNumber: pnumber.value,
+            deliveryAddress: deliveryAddress.value,
+            select: selectId.value,
+            addPhone: afNumber.value,
+            addInformation: addInfo.value
+        };
+        console.log(address);
+
+        // e.preventDefault();
+        let amount =  JSON.parse(localStorage.getItem("CheckoutAmount"))
+        let handler = PaystackPop.setup({
+            key: 'pk_test_ecdb634e09d31a26c186e8096151b29b26999317',
+            email: address.email, 
+            amount: amount* 100,
+            firstname: address.firstName, 
+            lastname: address.lastName 
+        });
+
+        handler.openIframe();
+        
+    }
+    // window.location.href = "dashboard.html"
+}
+
+            // alert("payment made successfully")
+            // window.location.href = "dashboard.html"
+        
+    </script>
+
+</body>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+    crossorigin="anonymous"></script>
+</html>
